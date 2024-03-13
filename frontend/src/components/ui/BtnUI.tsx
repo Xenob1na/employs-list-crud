@@ -1,9 +1,9 @@
-const Btn = (props: any) => {
+const Btn = ({name}) => {
     return (
         <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3"
+            className="rounded-lg bg-[#605BFF] hover:bg-[#4b46c5] text-white font-bold py-2 px-4  mr-3"
         >
-            {props.name}
+            {name}
         </button>
     )
 }
