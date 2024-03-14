@@ -1,6 +1,17 @@
 import BtnUI from "./ui/BtnUI";
+import axios from "axios";
 
-const EmployeesListItem = ({ name, email, phone }) => {
+const EmployeesListItem = ({ name, email, phone,id }) => {
+
+  const deleteEmploy = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/v1/employs/${id}`);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="mt-10">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -33,7 +44,8 @@ const EmployeesListItem = ({ name, email, phone }) => {
               <td className="px-6 py-4">{email}</td>
               <td className="px-6 py-4">
                 <BtnUI name="Редактировать" />
-                <BtnUI name="Удалить" />
+                <BtnUI name="Удалить" onClick={() => deleteEmploy(id)} />
+                <button type="button" className="rounded-lg bg-[#605BFF] hover:bg-[#4b46c5] text-white font-bold py-2 px-4  mr-3" onClick={() => deleteEmploy(id)}>ss</button>
               </td>
             </tr>
           </tbody>

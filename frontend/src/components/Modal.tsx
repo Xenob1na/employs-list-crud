@@ -2,6 +2,11 @@ import { IoCloseOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import { employServices } from "../services/employs.services";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Modal = ({ onClose }) => {
   interface Employee {
     name: string;
@@ -16,9 +21,15 @@ const Modal = ({ onClose }) => {
   });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await axios.post("http://localhost:3000/api/v1/employs/", employee);
-    onClose();
+    try {
+      e.preventDefault();
+      await axios.post("http://localhost:3000/api/v1/employs/", employee);
+      toast.success("Запись добавлена");
+      onClose();
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
