@@ -15,6 +15,22 @@ class EmployServices {
       console.log(error);
     }
   }
+
+  async deleteEmploy(id: number) {
+    try {
+      await axios.delete(this.URL + id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async addEmploy(data: IEmployee) {
+    try {
+      await axios.post(this.URL, data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export const employServices = new EmployServices();

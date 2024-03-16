@@ -1,16 +1,30 @@
 import BtnUI from "./ui/BtnUI";
-import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const EmployeesListItem = ({ name, email, phone,id }) => {
+import { employServices } from "../services/employs.services";
+
+const notify = () => toast.warning("Происходит удаление...");
+
+import { Link } from "react-router-dom";
+
+const EmployeesListItem = ({ name, email, phone, id }) => {
+
+ 
+
+  
 
   const deleteEmploy = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3000/api/v1/employs/${id}`);
-      window.location.reload();
+      await employServices.deleteEmploy(id);
+      notify();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="mt-10">
@@ -43,9 +57,16 @@ const EmployeesListItem = ({ name, email, phone,id }) => {
               <td className="px-6 py-4">{phone}</td>
               <td className="px-6 py-4">{email}</td>
               <td className="px-6 py-4">
-                <BtnUI name="Редактировать" />
-                <BtnUI name="Удалить" onClick={() => deleteEmploy(id)} />
-                <button type="button" className="rounded-lg bg-[#605BFF] hover:bg-[#4b46c5] text-white font-bold py-2 px-4  mr-3" onClick={() => deleteEmploy(id)}>ss</button>
+                <Link to={`/edit/${id}`}>
+                  <BtnUI name="Редактировать" />
+                </Link>
+                <button
+                  type="button"
+                  className="rounded-lg bg-red-500 hover:bg-red-600  text-white font-bold py-2 px-4  mr-3"
+                  onClick={() => deleteEmploy(id)}
+                >
+                  Удалить
+                </button>
               </td>
             </tr>
           </tbody>
