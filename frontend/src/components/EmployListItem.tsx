@@ -4,23 +4,21 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { employServices } from "../services/employs.services";
 
-const notify = () => toast.warning("Происходит удаление...");
+import { MdDelete } from "react-icons/md";
+
+const notify = () => toast.warning("Сотрудник был удален");
 
 import { Link } from "react-router-dom";
 
-const EmployeesListItem = ({ name, email, phone, id }) => {
+import { FaEye } from "react-icons/fa6";
 
- 
-
-  
-
+const EmployeesListItem = ({ name, email, phone, id, setEmployee, employee }) => {
   const deleteEmploy = async (id: number) => {
     try {
       await employServices.deleteEmploy(id);
       notify();
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      const remaining = employee.filter((employee) => employee.id !== id);
+      setEmployee(remaining);
     } catch (error) {
       console.log(error);
     }
@@ -56,17 +54,27 @@ const EmployeesListItem = ({ name, email, phone, id }) => {
               </th>
               <td className="px-6 py-4">{phone}</td>
               <td className="px-6 py-4">{email}</td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-4 flex">
                 <Link to={`/edit/${id}`}>
                   <BtnUI name="Редактировать" />
                 </Link>
                 <button
                   type="button"
-                  className="rounded-lg bg-red-500 hover:bg-red-600  text-white font-bold py-2 px-4  mr-3"
+                  className="rounded-lg bg-red-500 flex items-center gap-2 hover:bg-red-600  text-white font-bold py-2 px-4  mr-3"
                   onClick={() => deleteEmploy(id)}
                 >
-                  Удалить
+                  <MdDelete />
+                  <span>Удалить</span>
                 </button>
+                <Link to={`/view/${id}`}>
+                  <button
+                    type="button"
+                    className="rounded-lg bg-green-500 flex items-center gap-2 hover:bg-green-600  text-white font-bold py-2 px-4  mr-3"
+                  >
+                    <FaEye />
+                    <span>Подробнее</span>
+                  </button>
+                </Link>
               </td>
             </tr>
           </tbody>

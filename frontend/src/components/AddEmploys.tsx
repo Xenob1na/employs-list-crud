@@ -37,7 +37,7 @@ const AddEmploys = () => {
       }
       setLoading(true);
       await axios.post("http://localhost:3000/api/v1/employs/", employee);
-      toast.success("Запись добавлена");
+      toast.success("Идет добавление...");
       setTimeout(() => {
         navigate("/");
       }, 2000);
@@ -64,11 +64,11 @@ const AddEmploys = () => {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Введите ФИО"
+                  placeholder="Смирнов Иван Иванович"
                   onChange={(e) =>
                     setEmployee({ ...employee, name: e.target.value })
                   }
-                  className="{{validated ? 'border-red-500' : ''}} w-full rounded border bg-[#F7F7F8] px-4 py-3 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+                  className={`${validated ? "border-red-500" : ""} w-full rounded border bg-[#F7F7F8] px-4 py-3 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring`}
                 />
               </div>
               <div>
@@ -78,11 +78,11 @@ const AddEmploys = () => {
                 <input
                   type="text"
                   name="email"
-                  placeholder="Введите Email"
+                  placeholder="smirnov@i.ru"
                   onChange={(e) =>
                     setEmployee({ ...employee, email: e.target.value })
                   }
-                  className="w-full rounded border bg-[#F7F7F8] px-4 py-3 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+                  className={`${validated ? "border-red-500" : ""} w-full rounded border bg-[#F7F7F8] px-4 py-3 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring`}
                 />
               </div>
               <div>
@@ -96,7 +96,7 @@ const AddEmploys = () => {
                   onChange={(e) =>
                     setEmployee({ ...employee, phone: e.target.value })
                   }
-                  className="w-full rounded border bg-[#F7F7F8] px-4 py-3 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+                  className={`${validated ? "border-red-500" : ""} w-full rounded border bg-[#F7F7F8] px-4 py-3 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring`}
                 />
               </div>
               {!loading && (

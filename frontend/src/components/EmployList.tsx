@@ -9,16 +9,17 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { IEmployee } from "../types/employs.type";
+import SkeletonEmployItem from "./ui/SkeletonEmployItem";
 
 const EmployList = () => {
-  const [post, setPost] = useState<IEmployee[]>([]);
+  const [employee, setEmployee] = useState<IEmployee[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const getPost = async () => {
+  const getEmploy = async () => {
     try {
       setLoading(true);
-      const res = await employServices.getPost();
-      setPost(res);
+      const res = await employServices.getEmploy();
+      setEmployee(res);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -28,7 +29,7 @@ const EmployList = () => {
   };
 
   useEffect(() => {
-    getPost();
+    getEmploy();
   }, []);
 
   return (
@@ -37,19 +38,19 @@ const EmployList = () => {
       <ToastContainer />
       {!loading && (
         <div>
-          {post.map((item) => (
-            <EmployeesListItem key={item.id} {...item} />
+          {employee.map((item) => (
+            <EmployeesListItem
+              key={item.id}
+              {...item}
+              setEmployee={setEmployee}
+              employee={employee}
+            />
           ))}
         </div>
       )}
 
       {loading && (
-        <div className="text-black mx-auto flex flex-col items-center justify-center mt-[130px]">
-          <AiOutlineLoading3Quarters
-            className="animate-spin"
-            style={{ fontSize: "50px" }}
-          />
-        </div>
+        <SkeletonEmployItem />
       )}
     </div>
   );

@@ -8,7 +8,7 @@ const Header = () => {
       <Link to={"/add"}>
         <button
           type="button"
-          className="rounded-lg bg-[#605BFF] hover:bg-[#4b46c5] text-white font-bold py-2 px-8 flex gap-2 items-center"
+          className="rounded-lg bg-[#605BFF] hover:bg-[#4b46c5] text-white font-bold py-3 px-6 flex gap-2 items-center"
         >
           <FaPlus />
           <span>Добавить</span>
